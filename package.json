@@ -1,0 +1,24 @@
+{
+  "name": "volto-sidebar",
+  "version": "1.0.0",
+  "description": "Customizations for default volto sidebar",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eea/volto-sidebar.git"
+  },
+  "keywords": [
+    "Volto",
+    "Plone",
+    "EEA"
+  ],
+  "author": "Tiberiu Ichim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eea/volto-sidebar/issues"
+  },
+  "homepage": "https://github.com/eea/volto-sidebar#readme"
+}
