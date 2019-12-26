@@ -86,7 +86,6 @@ class Sidebar extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
-    console.log('hello world');
     const { expanded } = this.state;
 
     return (
