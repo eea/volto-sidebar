@@ -182,6 +182,10 @@ class Edit extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
+    // This is an optimization so that we don't show a wrong form while we
+    // haven't decided yet which form implementation to use
+    if (!this.props.content['@type']) return '';
+
     const FormImpl = getEditForm(this.props) || Form;
 
     return (
@@ -211,7 +215,7 @@ class Edit extends Component {
             onTabChange={this.onTabChange}
             panes={[
               {
-                menuItem: 'Layout',
+                menuItem: 'Blocks',
                 pane: (
                   <Tab.Pane
                     key="visual"
@@ -239,7 +243,7 @@ class Edit extends Component {
                 ),
               },
               {
-                menuItem: this.props.intl.formatMessage(messages.document),
+                menuItem: 'Metadata',
                 pane: (
                   <Tab.Pane
                     key="metadata"

@@ -1,6 +1,9 @@
 /**
  * Sidebar component.
  * @module components/manage/Sidebar/Sidebar
+ *
+ * The only thing that is customized, compared to the default Volto sidebar is
+ * the removal of the Document tab in the sidebar.
  */
 
 import React, { Component, Fragment } from 'react';
