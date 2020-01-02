@@ -30,8 +30,6 @@ import { Sidebar } from 'volto-sidebar/Sidebar';
 import { getEditForm } from 'volto-sidebar/helpers';
 import Form from '@plone/volto/components/manage/Form/Form';
 
-import cookie from 'react-cookie';
-
 const messages = defineMessages({
   edit: {
     id: 'Edit {title}',
@@ -180,11 +178,6 @@ class Edit extends Component {
 
   onTabChange(event, { activeIndex }) {
     this.setState({ currentTab: activeIndex });
-
-    // cookie.save('sidebar_expanded', false, {
-    //   expires: new Date((2 ** 31 - 1) * 1000),
-    //   path: '/',
-    // });
   }
 
   form = React.createRef();
