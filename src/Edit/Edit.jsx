@@ -30,6 +30,8 @@ import { Sidebar } from 'volto-sidebar/Sidebar';
 import { getEditForm } from 'volto-sidebar/helpers';
 import Form from '@plone/volto/components/manage/Form/Form';
 
+import cookie from 'react-cookie';
+
 const messages = defineMessages({
   edit: {
     id: 'Edit {title}',
@@ -109,9 +111,11 @@ class Edit extends Component {
     super(props);
     this.state = {
       visual: true,
+      currentTab: 0,
     };
     this.onCancel = this.onCancel.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onTabChange = this.onTabChange.bind(this);
   }
 
   /**
@@ -172,6 +176,15 @@ class Edit extends Component {
     this.props.history.push(
       this.props.returnUrl || getBaseUrl(this.props.pathname),
     );
+  }
+
+  onTabChange(event, { activeIndex }) {
+    this.setState({ currentTab: activeIndex });
+
+    // cookie.save('sidebar_expanded', false, {
+    //   expires: new Date((2 ** 31 - 1) * 1000),
+    //   path: '/',
+    // });
   }
 
   form = React.createRef();
@@ -295,7 +308,7 @@ class Edit extends Component {
             }
           />
         </Portal>
-        {this.state.visual && (
+        {this.state.visual && this.state.currentTab === 0 && (
           <Portal node={__CLIENT__ && document.getElementById('sidebar')}>
             <Sidebar />
           </Portal>

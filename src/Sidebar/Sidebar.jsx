@@ -2,8 +2,9 @@
  * Sidebar component.
  * @module components/manage/Sidebar/Sidebar
  *
- * The only thing that is customized, compared to the default Volto sidebar is
- * the removal of the Document tab in the sidebar.
+ * Customizations:
+ * - the removal of the Document tab in the sidebar.
+ * - automatically toggle sidebar on edit tab switch (blocks -> metadata)
  */
 
 import React, { Component, Fragment } from 'react';
@@ -53,7 +54,8 @@ class Sidebar extends Component {
     this.onToggleExpanded = this.onToggleExpanded.bind(this);
     this.onTabChange = this.onTabChange.bind(this);
     this.state = {
-      expanded: cookie.load('sidebar_expanded') !== 'false',
+      // Changed from default volto, we always expand sidebar
+      expanded: true, // cookie.load('sidebar_expanded') !== 'false',
     };
   }
 
