@@ -111,7 +111,6 @@ class Add extends Component {
   }
 
   onTabChange(event, { activeIndex }) {
-    console.log('on tab change', activeIndex);
     this.setState({ currentTab: activeIndex });
   }
 

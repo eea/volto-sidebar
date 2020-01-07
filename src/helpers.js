@@ -22,12 +22,6 @@ function getByLayout(props, type) {
 }
 
 export function getEditForm(props, type = 'edit') {
-  console.log(
-    props.content.layout,
-    props.content['@type'],
-    editForms.default,
-    props,
-  );
   const impl =
     getByLayout(props, type) || getByType(props, type) || editForms.default;
 
