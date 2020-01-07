@@ -166,6 +166,7 @@ class Add extends Component {
    * @returns {string} Markup for the component.
    */
   render() {
+    // {/* <div id="sidebar-metadata">Metadata here</div> */}
     if (this.props.schemaRequest.loaded) {
       const FormImpl = getEditForm(this.props) || Form;
       const visual = hasBlocksData(this.props.schema.properties);
@@ -236,7 +237,22 @@ class Add extends Component {
               ]}
             />
           ) : (
-            <div id="sidebar-metadata">Metadata here</div>
+            <FormImpl
+              ref={this.form}
+              schema={this.props.schema}
+              formData={{
+                [getBlocksFieldname(this.props.schema.properties)]: null,
+                [getBlocksLayoutFieldname(this.props.schema.properties)]: null,
+              }}
+              onSubmit={this.onSubmit}
+              hideActions
+              pathname={this.props.pathname}
+              visual={visual}
+              title={this.props.intl.formatMessage(messages.add, {
+                type: this.props.type,
+              })}
+              loading={this.props.createRequest.loading}
+            />
           )}
 
           {visual && (
