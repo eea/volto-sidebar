@@ -26,7 +26,7 @@ import { getBaseUrl, hasBlocksData } from '@plone/volto/helpers';
 import saveSVG from '@plone/volto/icons/save.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
 
-import { Sidebar } from 'volto-sidebar/Sidebar';
+import { Sidebar } from '../Sidebar';
 import { getEditForm } from 'volto-sidebar/helpers';
 import Form from '@plone/volto/components/manage/Form/Form';
 

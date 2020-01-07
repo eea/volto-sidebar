@@ -21,7 +21,8 @@ import qs from 'query-string';
 import { settings } from '~/config';
 
 import { createContent, getSchema } from '@plone/volto/actions';
-import { Form, Icon, Toolbar, Sidebar } from '@plone/volto/components';
+import { Form, Icon, Toolbar } from '@plone/volto/components';
+import { Sidebar } from '../Sidebar';
 import {
   getBaseUrl,
   hasBlocksData,
@@ -103,6 +104,15 @@ class Add extends Component {
     super(props);
     this.onCancel = this.onCancel.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onTabChange = this.onTabChange.bind(this);
+    this.state = {
+      currentTab: 0,
+    };
+  }
+
+  onTabChange(event, { activeIndex }) {
+    console.log('on tab change', activeIndex);
+    this.setState({ currentTab: activeIndex });
   }
 
   /**
@@ -236,32 +246,22 @@ class Add extends Component {
               ]}
             />
           ) : (
-            <div id="sidebar-metadata">
-              <FormImpl
-                ref={this.form}
-                schema={this.props.schema}
-                formData={{
-                  [getBlocksFieldname(this.props.schema.properties)]: null,
-                  [getBlocksLayoutFieldname(
-                    this.props.schema.properties,
-                  )]: null,
-                }}
-                onSubmit={this.onSubmit}
-                hideActions
-                pathname={this.props.pathname}
-                visual={visual}
-                title={this.props.intl.formatMessage(messages.add, {
-                  type: this.props.type,
-                })}
-                loading={this.props.createRequest.loading}
-              />
-            </div>
-          )}
-
-          {visual && (
-            <Portal node={__CLIENT__ && document.getElementById('sidebar')}>
-              <Sidebar />
-            </Portal>
+            <FormImpl
+              ref={this.form}
+              schema={this.props.schema}
+              formData={{
+                [getBlocksFieldname(this.props.schema.properties)]: null,
+                [getBlocksLayoutFieldname(this.props.schema.properties)]: null,
+              }}
+              onSubmit={this.onSubmit}
+              hideActions
+              pathname={this.props.pathname}
+              visual={visual}
+              title={this.props.intl.formatMessage(messages.add, {
+                type: this.props.type,
+              })}
+              loading={this.props.createRequest.loading}
+            />
           )}
 
           <Portal node={__CLIENT__ && document.getElementById('toolbar')}>
@@ -299,6 +299,12 @@ class Add extends Component {
               }
             />
           </Portal>
+
+          {visual && this.state.currentTab === 0 && (
+            <Portal node={__CLIENT__ && document.getElementById('sidebar')}>
+              <Sidebar />
+            </Portal>
+          )}
         </div>
       );
     }
