@@ -192,7 +192,7 @@ class Edit extends Component {
     // haven't decided yet which form implementation to use
     if (!this.props.content['@type']) return '';
 
-    const FormImpl = getEditForm(this.props) || Form;
+    const FormImpl = getEditForm(this.props, 'edit') || Form;
     // <div id="sidebar-metadata">Metadata here</div>
 
     return (

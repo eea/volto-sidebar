@@ -1,10 +1,35 @@
 import { editForms } from '~/config';
+// import { hasBlocksData } from '@plone/volto';
+// getDefaultFromSchema(props, type) ||
 
-export function getEditForm(props) {
+function getByType(props, type) {
+  let res;
+  switch (type) {
+    case 'edit':
+      res = props.content['@type'];
+      break;
+    case 'add':
+      res = props.type;
+      break;
+    default:
+      res = props.content['@type'];
+  }
+  return editForms.byType[res];
+}
+
+function getByLayout(props, type) {
+  return type === 'edit' ? editForms.byLayout[props.content.layout] : null;
+}
+
+export function getEditForm(props, type = 'edit') {
+  console.log(
+    props.content.layout,
+    props.content['@type'],
+    editForms.default,
+    props,
+  );
   const impl =
-    editForms.byLayout[props.content.layout] ||
-    editForms.byType[props.content['@type']] ||
-    editForms.default;
+    getByLayout(props, type) || getByType(props, type) || editForms.default;
 
   return impl;
 }
