@@ -193,6 +193,7 @@ class Edit extends Component {
     if (!this.props.content['@type']) return '';
 
     const FormImpl = getEditForm(this.props) || Form;
+    // <div id="sidebar-metadata">Metadata here</div>
 
     return (
       <div id="page-edit">
@@ -261,7 +262,23 @@ class Edit extends Component {
             ]}
           />
         ) : (
-          <div id="sidebar-metadata">Metadata here</div>
+          <FormImpl
+            ref={this.form}
+            schema={this.props.schema}
+            formData={this.props.content}
+            onSubmit={this.onSubmit}
+            hideActions
+            pathname={this.props.pathname}
+            visual={this.state.visual}
+            title={
+              this.props?.schema?.title
+                ? this.props.intl.formatMessage(messages.edit, {
+                    title: this.props.schema.title,
+                  })
+                : null
+            }
+            loading={this.props.updateRequest.loading}
+          />
         )}
 
         <Portal node={__CLIENT__ && document.getElementById('toolbar')}>
