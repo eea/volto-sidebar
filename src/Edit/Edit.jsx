@@ -30,6 +30,8 @@ import { Sidebar } from '../Sidebar';
 import { getEditForm } from 'volto-sidebar/helpers';
 import Form from '@plone/volto/components/manage/Form/Form';
 
+import '../style.css';
+
 const messages = defineMessages({
   edit: {
     id: 'Edit {title}',

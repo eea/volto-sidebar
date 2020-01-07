@@ -1,0 +1,27 @@
+.tabs-wrapper {
+  padding: 0 1em;
+}
+
+.tabs-wrapper .ui.secondary.pointing.menu {
+  border-bottom: 4px solid #eaeaea !important;
+}
+
+#visual-form,
+#sidebar-metadata,
+#sidebar-metadata > form > .segment {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#sidebar-metadata > form > .secondary.segment {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#sidebar-metadata > form > .segment .field:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+#sidebar-metadata > form > .segment .field-file-name {
+  padding-bottom: 0;
+}

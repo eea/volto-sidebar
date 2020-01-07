@@ -34,6 +34,8 @@ import saveSVG from '@plone/volto/icons/save.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import { getEditForm } from 'volto-sidebar/helpers';
 
+import '../style.css';
+
 const messages = defineMessages({
   add: {
     id: 'Add {type}',
