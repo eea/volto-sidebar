@@ -55,7 +55,7 @@ class Sidebar extends Component {
     this.onTabChange = this.onTabChange.bind(this);
     this.state = {
       // Changed from default volto, we always expand sidebar
-      expanded: true, // cookie.load('sidebar_expanded') !== 'false',
+      expanded: this.props.sidebarState, // cookie.load('sidebar_expanded') !== 'false',
     };
   }
 
@@ -72,6 +72,12 @@ class Sidebar extends Component {
     this.setState({
       expanded: !this.state.expanded,
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.sidebarState != prevProps.sidebarState) {
+      this.setState({ expanded: this.props.sidebarState });
+    }
   }
 
   /**
@@ -151,6 +157,7 @@ export default compose(
   connect(
     state => ({
       tab: state.sidebar.tab,
+      sidebarState: state.sidebar_state.open,
     }),
     { setSidebarTab },
   ),

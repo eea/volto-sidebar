@@ -145,7 +145,7 @@ class Edit extends Component {
       }
     }
     // Hack for make the Plone site editable by Volto Editor without checkings
-    if (this.props.content['@type'] === 'Plone Site') {
+    if (this.props.content && this.props.content['@type'] === 'Plone Site') {
       this.setState({
         visual: true,
       });
