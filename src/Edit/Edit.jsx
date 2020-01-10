@@ -234,6 +234,7 @@ class Edit extends Component {
                   >
                     <FormImpl
                       ref={this.form}
+                      inputRef={this.form}
                       schema={this.props.schema}
                       formData={this.props.content}
                       onSubmit={this.onSubmit}
@@ -267,6 +268,7 @@ class Edit extends Component {
         ) : (
           <FormImpl
             ref={this.form}
+            inputRef={this.form}
             schema={this.props.schema}
             formData={this.props.content}
             onSubmit={this.onSubmit}
