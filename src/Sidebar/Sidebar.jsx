@@ -75,7 +75,7 @@ class Sidebar extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.sidebarState != prevProps.sidebarState) {
+    if (this.props.sidebarState !== prevProps.sidebarState) {
       this.setState({ expanded: this.props.sidebarState });
     }
   }
