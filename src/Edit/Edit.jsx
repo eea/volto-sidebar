@@ -249,6 +249,7 @@ class Edit extends Component {
                           : null
                       }
                       loading={this.props.updateRequest.loading}
+                      mode="editform"
                     />
                   </Tab.Pane>
                 ),
@@ -283,6 +284,7 @@ class Edit extends Component {
                 : null
             }
             loading={this.props.updateRequest.loading}
+            mode="editform"
           />
         )}
 

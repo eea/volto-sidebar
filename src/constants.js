@@ -1,1 +1,2 @@
 export const CHANGE_SIDEBAR_STATE = 'CHANGE_SIDEBAR_STATE';
+export const CLONE_AS_TYPE = 'CLONE_AS_TYPE';

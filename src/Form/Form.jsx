@@ -29,7 +29,7 @@ import {
 import aheadSVG from '@plone/volto/icons/ahead.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
 
-import BlocksLayoutEditor from 'volto-sidebar/BlocksLayoutEditor';
+import { TemplatingToolbar } from 'volto-sidebar/LayoutTemplating';
 
 const messages = defineMessages({
   addBlock: {
@@ -551,44 +551,15 @@ class Form extends Component {
           />
         ))}
 
-        <div className="import-export-blockdata">
-          <Button
-            size="mini"
-            onClick={() =>
-              this.setState({
-                ...this.state,
-                showImportExport: true,
-              })
-            }
-          >
-            Import/Export layout and blocks
-          </Button>
-          {this.state.showImportExport ? (
-            <BlocksLayoutEditor
-              value={{
-                blocks: this.state.formData?.blocks || {},
-                blocks_layout: this.state.formData?.blocks_layout || {},
-              }}
-              onSave={({ blocks, blocks_layout }) =>
-                this.setState({
-                  formData: {
-                    ...this.state.formData,
-                    blocks,
-                    blocks_layout,
-                  },
-                  showImportExport: false,
-                })
-              }
-              onClose={() =>
-                this.setState({
-                  showImportExport: false,
-                })
-              }
-            />
-          ) : (
-            ''
-          )}
-        </div>
+        <TemplatingToolbar
+          mode={this.props.mode}
+          formData={this.state.formData || {}}
+          onSave={({ blocks, blocks_layout }) =>
+            this.setState({
+              formData: { ...this.state.formData, blocks, blocks_layout },
+            })
+          }
+        />
 
         <Portal
           node={__CLIENT__ && document.getElementById('sidebar-metadata')}

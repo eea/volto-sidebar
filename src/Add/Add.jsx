@@ -230,6 +230,7 @@ class Add extends Component {
                           type: this.props.type,
                         })}
                         loading={this.props.createRequest.loading}
+                        mode="addform"
                       />
                     </Tab.Pane>
                   ),
@@ -262,6 +263,7 @@ class Add extends Component {
                 type: this.props.type,
               })}
               loading={this.props.createRequest.loading}
+              mode="addform"
             />
           )}
 
