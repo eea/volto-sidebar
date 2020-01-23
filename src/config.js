@@ -1,6 +1,6 @@
 import addonRoutes from './routes.js';
-import * as components from '@plone/volto/components';
 import * as addonReducers from './reducers';
+import Form from './Form';
 
 export function applyConfig(config) {
   return {
@@ -18,7 +18,7 @@ export function applyConfig(config) {
       byType: {
         ...config.editForms?.byType,
       },
-      default: components.Form,
+      default: Form,
     },
   };
 }
