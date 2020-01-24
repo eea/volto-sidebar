@@ -7,13 +7,7 @@ const initialState = {
   loading: false,
 };
 
-/**
- * Mosaic Settings reducer.
- * @function mosaic_settings
- * @param {Object} state Current state.
- * @param {Object} action Action to be handled.
- * @returns {Object} New state.
- */
+// TODO: need to action/reduce it with a new state, to avoid toasting again
 export default function mosaic_settings(state = initialState, action = {}) {
   switch (action.type) {
     case `${CLONE_AS_TYPE}_PENDING`:

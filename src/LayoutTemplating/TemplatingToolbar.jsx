@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import BlocksLayoutEditor from './BlocksLayoutEditor';
 import { Button, Modal, Segment } from 'semantic-ui-react';
 import { BodyClass } from '@plone/volto/helpers';
@@ -49,6 +49,39 @@ const Toolbar = ({ formData, onSave, cloneAsType, ...props }) => {
   const [showImportExport, setShowImportExport] = useState(false);
   const [showCreateTemplate, setShowCreateTemplate] = useState(false);
 
+  const showSuccess = useCallback(() => {
+    if (props.cloned_type.loaded) {
+      toast.info(
+        <Toast
+          info
+          title="Template type created"
+          content={`A new template type has been created: ${
+            props.cloned_type.items?.name
+          }`}
+        />,
+      );
+      setShowCreateTemplate(false);
+    }
+  }, [
+    props.cloned_type.items,
+    props.cloned_type.loaded,
+    setShowCreateTemplate,
+  ]);
+  const showFailure = useCallback(() => {
+    if (props.cloned_type.error)
+      toast.error(
+        <Toast
+          error
+          title="Template type has not been created"
+          content="An error occured while creating the new template type."
+        />,
+      );
+  }, [props.cloned_type.error]);
+
+  useEffect(() => {
+    showSuccess();
+    showFailure();
+  }, [showSuccess, showFailure]);
   console.log('props', props);
 
   return (
@@ -56,24 +89,6 @@ const Toolbar = ({ formData, onSave, cloneAsType, ...props }) => {
       <Segment>
         <div className="import-export-blockdata">
           {props.cloned_type.loading && <Spinner />}
-          {props.cloned_type.loaded &&
-            toast.info(
-              <Toast
-                info
-                title="Template type created"
-                content={`A new template type has been created: ${
-                  props.cloned_type.items?.name
-                }`}
-              />,
-            )}
-          {props.cloned_type.error &&
-            toast.error(
-              <Toast
-                error
-                title="Template type has not been created"
-                content="An error occured while creating the new template type."
-              />,
-            )}
 
           <Button size="mini" onClick={() => setShowImportExport(true)}>
             Import/Export layout and blocks
