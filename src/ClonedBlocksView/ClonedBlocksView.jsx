@@ -4,7 +4,6 @@ import DefaultView from '@plone/volto/components/theme/View/DefaultView';
 
 export default ({ content, ...props }) => {
   const useMosaic = content?.cloned_blocks_layout?.mosaic_layout ? true : false;
-  console.log('useMosaic', useMosaic, content, props);
   return useMosaic ? (
     <div id="mosaic-view">
       <MosaicView {...props} />
@@ -13,9 +12,3 @@ export default ({ content, ...props }) => {
     <DefaultView content={content} {...props} />
   );
 };
-
-// content={{
-//   ...content,
-//   blocks: content.cloned_blocks,
-//   blocks_layout: content.cloned_blocks_layout,
-// }}
