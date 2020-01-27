@@ -124,7 +124,7 @@ class Sidebar extends Component {
             }}
             className="tabs-wrapper"
             renderActiveOnly={false}
-            activeIndex={this.props.tab}
+            activeIndex={0}
             onTabChange={this.onTabChange}
             panes={[
               {
@@ -134,6 +134,7 @@ class Sidebar extends Component {
                     key="properties"
                     className="tab-wrapper"
                     id="sidebar-properties"
+                    active={true}
                   >
                     <Icon
                       className="tab-forbidden"
