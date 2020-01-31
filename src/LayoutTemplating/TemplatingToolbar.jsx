@@ -82,7 +82,7 @@ const Toolbar = ({ formData, onSave, cloneAsType, ...props }) => {
     showSuccess();
     showFailure();
   }, [showSuccess, showFailure]);
-  console.log('props', props);
+  // console.log('props', props);
 
   return (
     <Segment.Group>
