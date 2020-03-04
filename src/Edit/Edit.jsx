@@ -7,7 +7,7 @@
  */
 
 import { Tab } from 'semantic-ui-react';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from '@plone/volto/helpers';
 import { connect } from 'react-redux';
@@ -31,6 +31,7 @@ import { getEditForm } from 'volto-sidebar/helpers';
 import Form from '@plone/volto/components/manage/Form/Form';
 
 import '../style.css';
+import Unauthorized from '../../../../components/theme/Unauthorized/Unauthorized';
 
 const messages = defineMessages({
   edit: {
@@ -88,6 +89,7 @@ class Edit extends Component {
       '@type': PropTypes.string,
     }),
     schema: PropTypes.objectOf(PropTypes.any),
+    objectActions: PropTypes.array,
   };
 
   /**
@@ -198,138 +200,147 @@ class Edit extends Component {
     const FormImpl = getEditForm(this.props, 'edit') || Form;
     // <div id="sidebar-metadata">Metadata here</div>
 
+    const editPermission = this.props.objectActions.find(({ id }) => id === 'edit');
+
     return (
       <div id="page-edit">
-        <Helmet
-          title={
-            this.props?.schema?.title
-              ? this.props.intl.formatMessage(messages.edit, {
-                  title: this.props.schema.title,
-                })
-              : null
-          }
-        />
+        {editPermission &&
+          <Fragment>
 
-        {this.state.visual ? (
-          <Tab
-            menu={{
-              secondary: true,
-              pointing: true,
-              attached: true,
-              tabular: true,
-              className: 'formtabs',
-            }}
-            className="tabs-wrapper"
-            renderActiveOnly={false}
-            activeIndex={this.props.tab}
-            onTabChange={this.onTabChange}
-            panes={[
-              {
-                menuItem: 'Blocks',
-                pane: (
-                  <Tab.Pane
-                    key="visual"
-                    className="tab-wrapper"
-                    id="visual-form"
-                  >
-                    <FormImpl
-                      ref={this.form}
-                      inputRef={this.form}
-                      schema={this.props.schema}
-                      formData={this.props.content}
-                      onSubmit={this.onSubmit}
-                      hideActions
-                      pathname={this.props.pathname}
-                      visual={this.state.visual}
-                      title={
-                        this.props?.schema?.title
-                          ? this.props.intl.formatMessage(messages.edit, {
-                              title: this.props.schema.title,
-                            })
-                          : null
-                      }
-                      loading={this.props.updateRequest.loading}
-                      mode="editform"
-                    />
-                  </Tab.Pane>
-                ),
-              },
-              {
-                menuItem: 'Metadata',
-                pane: (
-                  <Tab.Pane
-                    key="metadata"
-                    className="tab-wrapper"
-                    id="sidebar-metadata"
-                  />
-                ),
-              },
-            ]}
-          />
-        ) : (
-          <FormImpl
-            ref={this.form}
-            inputRef={this.form}
-            schema={this.props.schema}
-            formData={this.props.content}
-            onSubmit={this.onSubmit}
-            hideActions
-            pathname={this.props.pathname}
-            visual={this.state.visual}
-            title={
-              this.props?.schema?.title
-                ? this.props.intl.formatMessage(messages.edit, {
+            <Helmet
+              title={
+                this.props?.schema?.title
+                  ? this.props.intl.formatMessage(messages.edit, {
                     title: this.props.schema.title,
                   })
-                : null
-            }
-            loading={this.props.updateRequest.loading}
-            mode="editform"
-          />
-        )}
-
-        <Portal node={__CLIENT__ && document.getElementById('toolbar')}>
-          <Toolbar
-            pathname={this.props.pathname}
-            hideDefaultViewButtons
-            inner={
-              <>
-                <Button
-                  id="toolbar-save"
-                  className="save"
-                  aria-label={this.props.intl.formatMessage(messages.save)}
-                  onClick={() => this.form.current.onSubmit()}
-                  disabled={this.props.updateRequest.loading}
+                  : null
+              }
+            />
+            {this.state.visual ? (
+              <Tab
+                menu={{
+                  secondary: true,
+                  pointing: true,
+                  attached: true,
+                  tabular: true,
+                  className: 'formtabs',
+                }}
+                className="tabs-wrapper"
+                renderActiveOnly={false}
+                activeIndex={this.props.tab}
+                onTabChange={this.onTabChange}
+                panes={[
+                  {
+                    menuItem: 'Blocks',
+                    pane: (
+                      <Tab.Pane
+                        key="visual"
+                        className="tab-wrapper"
+                        id="visual-form"
+                      >
+                        <FormImpl
+                          ref={this.form}
+                          inputRef={this.form}
+                          schema={this.props.schema}
+                          formData={this.props.content}
+                          onSubmit={this.onSubmit}
+                          hideActions
+                          pathname={this.props.pathname}
+                          visual={this.state.visual}
+                          title={
+                            this.props?.schema?.title
+                              ? this.props.intl.formatMessage(messages.edit, {
+                                title: this.props.schema.title,
+                              })
+                              : null
+                          }
+                          loading={this.props.updateRequest.loading}
+                          mode="editform"
+                        />
+                      </Tab.Pane>
+                    ),
+                  },
+                  {
+                    menuItem: 'Metadata',
+                    pane: (
+                      <Tab.Pane
+                        key="metadata"
+                        className="tab-wrapper"
+                        id="sidebar-metadata"
+                      />
+                    ),
+                  },
+                ]}
+              />
+            ) : (
+                <FormImpl
+                  ref={this.form}
+                  inputRef={this.form}
+                  schema={this.props.schema}
+                  formData={this.props.content}
+                  onSubmit={this.onSubmit}
+                  hideActions
+                  pathname={this.props.pathname}
+                  visual={this.state.visual}
+                  title={
+                    this.props?.schema?.title
+                      ? this.props.intl.formatMessage(messages.edit, {
+                        title: this.props.schema.title,
+                      })
+                      : null
+                  }
                   loading={this.props.updateRequest.loading}
-                >
-                  <Icon
-                    name={saveSVG}
-                    className="circled"
-                    size="30px"
-                    title={this.props.intl.formatMessage(messages.save)}
-                  />
-                </Button>
-                <Button
-                  className="cancel"
-                  aria-label={this.props.intl.formatMessage(messages.cancel)}
-                  onClick={() => this.onCancel()}
-                >
-                  <Icon
-                    name={clearSVG}
-                    className="circled"
-                    size="30px"
-                    title={this.props.intl.formatMessage(messages.cancel)}
-                  />
-                </Button>
-              </>
-            }
-          />
-        </Portal>
-        {this.state.visual && this.state.currentTab === 0 && (
-          <Portal node={__CLIENT__ && document.getElementById('sidebar')}>
-            <Sidebar />
-          </Portal>
-        )}
+                  mode="editform"
+                />
+              )}
+
+            <Portal node={__CLIENT__ && document.getElementById('toolbar')}>
+              <Toolbar
+                pathname={this.props.pathname}
+                hideDefaultViewButtons
+                inner={
+                  <>
+                    <Button
+                      id="toolbar-save"
+                      className="save"
+                      aria-label={this.props.intl.formatMessage(messages.save)}
+                      onClick={() => this.form.current.onSubmit()}
+                      disabled={this.props.updateRequest.loading}
+                      loading={this.props.updateRequest.loading}
+                    >
+                      <Icon
+                        name={saveSVG}
+                        className="circled"
+                        size="30px"
+                        title={this.props.intl.formatMessage(messages.save)}
+                      />
+                    </Button>
+                    <Button
+                      className="cancel"
+                      aria-label={this.props.intl.formatMessage(messages.cancel)}
+                      onClick={() => this.onCancel()}
+                    >
+                      <Icon
+                        name={clearSVG}
+                        className="circled"
+                        size="30px"
+                        title={this.props.intl.formatMessage(messages.cancel)}
+                      />
+                    </Button>
+                  </>
+                }
+              />
+            </Portal>
+            {this.state.visual && this.state.currentTab === 0 && (
+              <Portal node={__CLIENT__ && document.getElementById('sidebar')}>
+                <Sidebar />
+              </Portal>
+            )}
+          </Fragment>
+        }
+        {!editPermission &&
+          <Unauthorized />
+        }
       </div>
     );
   }
@@ -340,6 +351,7 @@ export default compose(
   injectIntl,
   connect(
     (state, props) => ({
+      objectActions: state.actions.actions.object,
       content: state.content.data,
       schema: state.schema.schema,
       getRequest: state.content.get,
