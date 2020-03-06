@@ -31,7 +31,7 @@ import { getEditForm } from 'volto-sidebar/helpers';
 import Form from '@plone/volto/components/manage/Form/Form';
 
 import '../style.css';
-import Unauthorized from '../../../../components/theme/Unauthorized/Unauthorized';
+import Unauthorized from '@plone/volto/components/theme/Unauthorized/Unauthorized';
 
 const messages = defineMessages({
   edit: {
